@@ -1,0 +1,98 @@
+.panel {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .45);
+    width: 860px;
+    margin: 0 auto;
+}
+
+#todo {
+    display: grid;
+    grid-gap: 20px;
+    margin-top: 20px;
+
+}
+
+.panel-header {
+    display: grid;
+    grid-template-columns: 30px repeat(4, 1fr);
+    border-bottom: 1px solid #a3a3a3;
+    justify-items: center;
+}
+
+.pages {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination {
+    display: flex;
+}
+
+.pagination a {
+    display: flex;
+    padding: 5px 10px;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #005cbf;
+    border-radius: 5px;
+    margin: 2px;
+}
+
+.pagination a:hover {
+    text-decoration: none;
+    background-color: #004797;
+
+}
+
+.pagination li.active a {
+    color: #fff;
+    background-color: #0f6674;
+}
+
+#add {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+form .user {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+form .email {
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+form .text {
+    grid-column: 1/2;
+    grid-row: 1/4;
+}
+
+.btn-wrapper {
+    grid-column: 2/3;
+    grid-row: 3/4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form .error .form-control {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
+.error .error-msg {
+    color: #dc3545;
+}
+
+nav.navbar .row {
+    width: 100%;
+}

@@ -1,0 +1,23 @@
+{
+  "name": "vendor_name/app",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "topalek",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "jasongrimes/paginator": "1.0.3"
+  },
+  "require-dev": {
+    "fzaninotto/faker": "^1.9"
+  },
+  "autoload": {
+    "psr-4": {
+      "app\\": "app"
+    }
+  }
+}
