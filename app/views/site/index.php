@@ -56,8 +56,8 @@ use JasonGrimes\Paginator;
                     <div class="id"><?= $task->id ?></div>
                     <div class="user-name"><?= $task->user_name ?></div>
                     <div class="email"><?= $task->user_email ?></div>
-                    <div class="edit"><?= ($task->edit) ? 'отредактировано' : "" ?></div>
-                    <div class="status"><?= ($task->status) ? "завершено" : 'активно' ?></div>
+                    <div class="edit"><?= ($task->edit) ? '<span class="badge badge-info">отредактировано</span>' : "" ?></div>
+                    <div class="status"><?= ($task->status) ? '<span class="badge badge-success">завершено</span>' : '<span class="badge badge-warning">активно</span>' ?></div>
                 </div>
                 <div class="panel-body">
                     <?= $task->text ?>

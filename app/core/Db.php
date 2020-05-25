@@ -29,7 +29,7 @@ class Db
     {
         $db = array_merge(
             require_once '_db.php',
-            require_once '_db-local.php',
+            require_once '_db-local.php'
         );
         try {
             $this->_pdo = new PDO($db['dsn'], $db['user'], $db['password']);
@@ -158,6 +158,8 @@ class Db
         if ( ! $this->createCommand()->error()) {
             return true;
         }
+
+        return $this->createCommand()->error();
 
         return false;
     }

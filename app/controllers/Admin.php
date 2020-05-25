@@ -39,21 +39,32 @@ class Admin extends Controller
         $oldText = $task->text;
         if (Input::exists()) {
             if (Security::checkCsrf(Input::post('_csrf'))) {
-                $status = Input::post('status');
-                $text = Input::post('text');
-                $edit = null;
+                $status = Input::post('status') ?? 0;
+                $text   = Input::post('text');
+                $edit   = 0;
                 if ($oldText !== $text) {
                     $edit = 1;
                 }
                 $fields = ['status' => $status, 'text' => $text, 'edit' => $edit];
-
+                var_dump(Db::getInstance()->update('task', $id, $fields));
                 if (Db::getInstance()->update('task', $id, $fields)) {
                     Redirect::to('/admin');
-                } else {
+                }else {
                     Session::flash('error', 'Возникла ошибка записи в БД. Попробуйте еще раз');
                 }
             }
         }
         $this->render('update', ['task' => $task]);
     }
+
+    protected function beforeAction()
+    {
+        parent::beforeAction();
+        if ( ! Session::valid()) {
+            Session::flash('warning', "У вас нет доступа");
+            Redirect::to('/site/login');
+        }
+    }
+
+
 }

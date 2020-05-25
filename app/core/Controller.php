@@ -37,10 +37,6 @@ class Controller
 
     protected function beforeAction()
     {
-        if (!Session::valid()) {
-            Session::flash('warning', "У вас нет доступа");
-            Redirect::to('/site/login');
-        }
         Security::generateCsrf();
     }
 }
