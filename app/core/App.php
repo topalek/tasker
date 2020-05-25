@@ -17,7 +17,7 @@ class App
         $url = $this->parseUrl();
 
         if ( ! empty($url)) {
-            if (class_exists('app\controllers\\' . $url[0])) {
+            if (class_exists('app\controllers\\' . ucfirst($url[0]))) {
                 $this->controller = 'app\controllers\\' . ucfirst($url[0]);
                 unset($url[0]);
             }

@@ -20,8 +20,11 @@ use JasonGrimes\Paginator;
                 <div class="user-name"><?= $task->user_name ?></div>
                 <div class="email"><?= $task->user_email ?></div>
                 <div class="edit"><?= ($task->edit) ? 'отредактировано' : "" ?></div>
-                <div class="status"><?= ($task->status) ? "завершено" : 'активно' ?></div>
-                <a href="/admin/update/<?= $task->id ?>" title="редактировать" class="update">редактировать</a>
+                <div class="status">
+                    <div class="status"><?= ($task->status) ? '<span class="badge badge-success">завершено</span>' : '<span class="badge badge-warning">активно</span>' ?></div>
+                </div>
+                <a href="/admin/update/<?= $task->id ?>" title="редактировать" class="update-link"><span
+                            class="badge badge-primary">редактировать</span></a>
             </div>
             <div class="panel-body">
                 <?= $task->text ?>

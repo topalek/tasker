@@ -20,10 +20,10 @@ class Admin extends Controller
 {
     public function index($page = 1)
     {
-        $tasks = Db::getInstance()->get('task')->all();
-        $totalItems = count($tasks);
+        $tasks        = Db::getInstance()->get('task')->all();
+        $totalItems   = count($tasks);
         $itemsPerPage = 3;
-        $urlPattern = '/site/index/(:num)';
+        $urlPattern   = '/admin/index/(:num)';
 
         $tasks = Db::getInstance()->get('task')->limit(10)->offset($itemsPerPage * ($page - 1))->order(
             'id',
