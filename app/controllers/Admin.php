@@ -9,10 +9,51 @@ namespace app\controllers;
 
 
 use app\core\Controller;
+use app\core\Db;
+use app\core\Input;
+use app\core\Redirect;
+use app\core\Security;
+use app\core\Session;
+use JasonGrimes\Paginator;
 
 class Admin extends Controller
 {
-    public function index()
+    public function index($page = 1)
     {
+        $tasks = Db::getInstance()->get('task')->all();
+        $totalItems = count($tasks);
+        $itemsPerPage = 3;
+        $urlPattern = '/site/index/(:num)';
+
+        $tasks = Db::getInstance()->get('task')->limit(10)->offset($itemsPerPage * ($page - 1))->order(
+            'id',
+            'desc'
+        )->all();
+        $paginator = new Paginator($totalItems, $itemsPerPage, $page, $urlPattern);
+        $this->render('index', ['tasks' => $tasks, 'paginator' => $paginator,]);
+    }
+
+    public function update($id)
+    {
+        $task = Db::getInstance()->get('task', ['id', '=', $id])->one();
+        $oldText = $task->text;
+        if (Input::exists()) {
+            if (Security::checkCsrf(Input::post('_csrf'))) {
+                $status = Input::post('status');
+                $text = Input::post('text');
+                $edit = null;
+                if ($oldText !== $text) {
+                    $edit = 1;
+                }
+                $fields = ['status' => $status, 'text' => $text, 'edit' => $edit];
+
+                if (Db::getInstance()->update('task', $id, $fields)) {
+                    Redirect::to('/admin');
+                } else {
+                    Session::flash('error', 'Возникла ошибка записи в БД. Попробуйте еще раз');
+                }
+            }
+        }
+        $this->render('update', ['task' => $task]);
     }
 }

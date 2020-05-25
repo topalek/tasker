@@ -18,7 +18,10 @@ class User
         $user = $this->find($name);
         if ($user) {
             if ($this->data()->password === Security::generatePassword($password, $this->data()->salt)) {
-                Session::put('user', $this->data()->name);
+                session_regenerate_id();
+                $sid = session_id();
+                $this->_db->update('user', $this->data()->id, ['sid' => $sid]);
+                Session::put('user', ['id' => $this->data()->id, 'sid' => $sid]);
 
                 return true;
             }
@@ -27,14 +30,16 @@ class User
         return false;
     }
 
-    public function find($name)
+    public function find($user = null)
     {
-        $query       = $this->_db->get('user', ['name', '=', $name]);
-        $this->_data = $query->one();
-        if ($this->_data) {
-            return $this->_data;
+        if ($user) {
+            $field = (is_numeric($user)) ? 'id' : 'name';
+            $query = $this->_db->get('user', [$field, '=', $user]);
+            $this->_data = $query->one();
+            if ($this->_data) {
+                return $this;
+            }
         }
-
         return false;
     }
 

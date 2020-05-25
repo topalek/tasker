@@ -1,9 +1,11 @@
 <?php
 /**
- * @var View $this
+ * @var View   $this
  * @var string $content
  */
 
+use app\core\Session;
+use app\core\User;
 use app\core\View;
 
 ?>
@@ -26,7 +28,20 @@ use app\core\View;
         <div class="row">
             <div class="col  d-flex justify-content-between">
                 <a class="navbar-brand" href="/">Tasker</a>
-                <a class="login-link" href="/site/login">Login</a>
+                <?php
+                if (Session::valid()):
+                    $user = (new User)->find(Session::get('user')['id'])
+                    ?>
+                    <div class="admin">
+                        <a class="login-link btn btn-info" href="/site/logout">Logout (<?= $user->data()->name ?>)</a>
+                        <a class="login-link btn btn-info" href="/admin">Admin panel</a>
+                    </div>
+
+                <?php
+                else: ?>
+                    <a class="login-link  btn btn-info" href="/site/login">Login</a>
+                <?php
+                endif; ?>
             </div>
         </div>
     </div>

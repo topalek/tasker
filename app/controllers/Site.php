@@ -38,6 +38,7 @@ class Site extends Controller
                 $task->text       = Db::escape(Input::post('text'));
                 if ($task->save()) {
                     Session::flash('success', "Задание добавлено");
+                    Redirect::to('/');
                 }
             }
         }
@@ -95,18 +96,26 @@ class Site extends Controller
                 $name = Input::post('user');
                 $pass = Input::post('pass');
 
-                $user  = (new User())->find($name);
+                $user = new User();
                 $login = $user->login($name, $pass);
                 if ($login) {
                     Redirect::to('/admin');
-                }else {
-                    Session::flash('warning', 'Возникла ошибка попробуйте еще раз');
+                } else {
+                    Session::flash('warning', 'Введены неверные логин или пароль');
                     Redirect::to('/site/login');
                 }
+            } else {
+                var_dump([Security::checkCsrf(Input::post('_csrf')), Input::post('_csrf')]);
             }
         }
 
         $this->render('login', ['validator' => $validator]);
     }
 
+    public function logout()
+    {
+        session_start();
+        session_destroy();
+        Redirect::to('/site/index');
+    }
 }

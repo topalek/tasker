@@ -14,7 +14,8 @@ class Controller
         $this->controllerName = explode("\\", get_class($this));
         $this->controllerName = strtolower(end($this->controllerName));
         $this->viewPath       = '../app/views/' . $this->controllerName . '/';
-        $this->_view          = new View();
+        $this->_view = new View();
+        $this->beforeAction();
     }
 
     public function getModel($model)
@@ -32,5 +33,14 @@ class Controller
     public function getView()
     {
         return $this->_view;
+    }
+
+    protected function beforeAction()
+    {
+        if (!Session::valid()) {
+            Session::flash('warning', "У вас нет доступа");
+            Redirect::to('/site/login');
+        }
+        Security::generateCsrf();
     }
 }

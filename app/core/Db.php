@@ -11,9 +11,9 @@ class Db
 {
     private static $_instance = null;
     protected $connection = null;
-    protected $dsn = 'mysql:host=127.0.0.1;dbname=todo';
-    protected $user = 'root';
-    protected $password = '';
+    protected $dsn;
+    protected $user;
+    protected $password;
     private $_pdo,
         $_query,
         $_error = false,
@@ -27,9 +27,13 @@ class Db
 
     private function __construct()
     {
+        $db = array_merge(
+            require_once '_db.php',
+            require_once '_db-local.php',
+        );
         try {
-            $this->_pdo = new PDO($this->dsn, $this->user, $this->password);
-        }catch (PDOException $e){
+            $this->_pdo = new PDO($db['dsn'], $db['user'], $db['password']);
+        } catch (PDOException $e) {
             die($e->getMessage());
         }
     }

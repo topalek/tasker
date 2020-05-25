@@ -1,11 +1,13 @@
 <?php
 /**
- * @var View $this
- * @var Task $tasks
- * @var Paginator $paginator
- * @var Validator $validator
+ * @var View       $this
+ * @var Task       $tasks
+ * @var Paginator  $paginator
+ * @var Validator  $validator
+ * @var LinkSorter $linkSorter
  */
 
+use app\core\LinkSorter;
 use app\core\Security;
 use app\core\Validator;
 use app\core\View;
@@ -35,7 +37,7 @@ use JasonGrimes\Paginator;
         <div class="form-group text<?= $validator->getError('text') ? ' error' : '' ?>">
             <label for="text">Задача</label>
             <textarea class="form-control" name="text" value="<?= $validator->getValue('text'); ?>" id="text"
-                      rows="10"></textarea>
+                      rows="5"></textarea>
             <div class="error-msg"><?= $validator->getError('text'); ?></div>
         </div>
         <div class="form-group btn-wrapper">

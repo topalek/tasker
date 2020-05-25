@@ -25,4 +25,14 @@ class Session
     {
         return $_SESSION[$name] = $value;
     }
+
+    public static function valid()
+    {
+        $sid = null;
+        if (!empty(self::get('user'))) {
+            $sid = self::get('user')['sid'];
+        }
+
+        return session_id() === $sid;
+    }
 }
