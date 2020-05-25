@@ -21,7 +21,7 @@ class User
                 session_regenerate_id();
                 $sid = session_id();
                 $this->_db->update('user', $this->data()->id, ['sid' => $sid]);
-                Session::put('user', ['id' => $this->data()->id, 'sid' => $sid]);
+                Session::put('user', ['id' => $this->data()->id, 'sid' => $sid, 'name' => $this->data()->name]);
 
                 return true;
             }

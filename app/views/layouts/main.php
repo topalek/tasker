@@ -5,7 +5,6 @@
  */
 
 use app\core\Session;
-use app\core\User;
 use app\core\View;
 
 ?>
@@ -29,11 +28,10 @@ use app\core\View;
             <div class="col  d-flex justify-content-between">
                 <a class="navbar-brand" href="/">Tasker</a>
                 <?php
-                if (Session::valid()):
-                    $user = (new User)->find(Session::get('user')['id'])
-                    ?>
+                if (Session::valid()): ?>
                     <div class="admin">
-                        <a class="login-link btn btn-info" href="/site/logout">Logout (<?= $user->data()->name ?>)</a>
+                        <a class="login-link btn btn-info" href="/site/logout">Logout (<?= Session::get('user.name') ?>
+                            )</a>
                         <a class="login-link btn btn-info" href="/admin">Admin panel</a>
                     </div>
 
