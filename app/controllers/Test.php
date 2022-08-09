@@ -9,14 +9,20 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\core\Security;
-use app\core\User;
+use app\Instagram\Instagram;
 
 class Test extends Controller
 {
     public function index()
     {
-        $user = new User();
-        $salt = Security::salt(32);
+        $insta = new Instagram(
+            [
+                'apiKey'      => 'YOUR_APP_KEY',
+                'apiSecret'   => 'YOUR_APP_SECRET',
+                'apiCallback' => 'YOUR_APP_CALLBACK'
+            ]
+        );
+        //$salt  = Security::salt(32);
         //$user->create(
         //    [
         //        'name'     => 'admin',
